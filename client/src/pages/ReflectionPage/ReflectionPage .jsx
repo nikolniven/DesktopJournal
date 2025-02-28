@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
-import TabsCard from '../../components/TabsCard';
+import TabsCard from '../../components/TabsCard/TabsCard';
 
 function ReflectionPage() {
   const { isLoggedIn, user } = useContext(AuthContext);
@@ -11,54 +11,11 @@ function ReflectionPage() {
     return navigate('/login');
   }
 
-  const tabsContent = [
-    {
-      label: 'HTML',
-      value: 'html',
-      desc: `It really matters and then like it really doesn't matter.
-      What matters is the people who are sparked by it. And the people 
-      who are like offended by it, it doesn't matter.`,
-    },
-    {
-      label: 'React',
-      value: 'react',
-      desc: `Because it's about motivating the doers. Because I'm here
-      to follow my dreams and inspire other people to follow their dreams, too.`,
-    },
-    {
-      label: 'Vue',
-      value: 'vue',
-      desc: `We're not always in the position that we want to be at.
-      We're constantly growing. We're constantly making mistakes. We're
-      constantly trying to express ourselves and actualize our dreams.`,
-    },
-  ];
-
   return (
-    <div>
-      {/* <div>
-        <div class="inline-flex rounded-md shadow-xs" role="group">
-          <button
-            type="button"
-            class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
-          >
-            Positive
-          </button>
-          <button
-            type="button"
-            class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
-          >
-            Neutral
-          </button>
-          <button
-            type="button"
-            class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
-          >
-            Negative
-          </button>
-        </div>
-      </div> */}
-      <TabsCard data={tabsContent} />
+    <div className="flex">
+      <div>
+        <TabsCard />
+      </div>
       <form className="mt-[8vh] w-[55vh]">
         <div className="w-full mb-4 border border-indigo-200 rounded-lg bg-indigo-100 dark:bg-indigo-700 dark:border-indigo-600">
           <div className="flex items-center justify-between px-3 py-2 border-b border-indigo-200 dark:border-indigo-600">

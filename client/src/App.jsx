@@ -12,6 +12,7 @@ import IsAnon from './components/IsAnon/IsAnon';
 
 import EntriesPage from './pages/EntriesPage/EntriesPage';
 import ReflectionPage from './pages/ReflectionPage/ReflectionPage ';
+import TabsCard from './components/TabsCard/TabsCard';
 
 function App() {
   return (

@@ -94,6 +94,7 @@ const Navbar = () => {
     { to: '/', title: 'Home' },
     { to: '/profile', title: 'Profile' },
     { to: '/entries', title: 'My Entries' },
+    { to: '/reflection', title: 'Reflection Log' },
   ];
 
   const guestLinks = [
@@ -125,9 +126,8 @@ const Navbar = () => {
           href="https://flowbite.com/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-           {user && <p>Welcome, {user.name}</p>}
+            {user && <p>Welcome, {user.name}</p>}
           </span>
         </div>
         <button

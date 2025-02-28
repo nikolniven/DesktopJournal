@@ -11,6 +11,7 @@ import IsPrivate from './components/IsPrivate/IsPrivate';
 import IsAnon from './components/IsAnon/IsAnon';
 
 import EntriesPage from './pages/EntriesPage/EntriesPage';
+import ReflectionPage from './pages/ReflectionPage/ReflectionPage ';
 
 function App() {
   return (
@@ -47,6 +48,14 @@ function App() {
             }
           />
           <Route path="/entries" element={<EntriesPage />} />
+          <Route
+            path="/reflection"
+            element={
+              <IsPrivate>
+                <ReflectionPage />
+              </IsPrivate>
+            }
+          />
         </Routes>
       </main>
     </div>

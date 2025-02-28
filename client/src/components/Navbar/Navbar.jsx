@@ -8,7 +8,7 @@ function Navbar() {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
 
   return (
-    <nav className="bg-indigo-400 p-4 flex justify-between items-center">
+    <nav className="bg-indigo-400 p-4 flex justify-between items-center w-full">
       {/* Hamburger Button (for mobile) */}
       <button className="lg:hidden text-white focus:outline-none">
         <svg
@@ -28,7 +28,7 @@ function Navbar() {
       </button>
 
       {/* Links */}
-      <div className="flex space-x-4">
+      <div className="flex space-x-4 w-full">
         <Link to="/">
           <button className="bg-indigo-300 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500">
             Home
@@ -37,27 +37,29 @@ function Navbar() {
 
         {isLoggedIn && (
           <>
-            <button
-              onClick={logOutUser}
-              className="bg-indigo-300 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
-              Logout
-            </button>
-
             <Link to="/profile">
               <button className="bg-indigo-300 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 Profile
               </button>
             </Link>
             <Link to="/entries">
-              <button className="bg-indigo-300 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <button className="bg-indigo-300 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 whitespace-nowrap">
                 My entries
               </button>
             </Link>
 
-            <span className="text-white">
+            <span className="text-white inline-block w-full">
               Hi {user && user.name}, welcome back
             </span>
+
+            <div>
+              <button
+                onClick={logOutUser}
+                className="bg-indigo-300 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                Logout
+              </button>
+            </div>
           </>
         )}
 

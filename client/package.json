@@ -1,5 +1,5 @@
 {
-  "name": "DekstopJournal-client",
+  "name": "new-project-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -36,6 +36,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
-    "@testing-library/user-event": "^14.6.1"
+    "@testing-library/user-event": "^14.6.1",
+    "tailwindcss": "^3.4.17"
   }
 }

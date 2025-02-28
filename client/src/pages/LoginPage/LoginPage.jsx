@@ -1,12 +1,12 @@
-import "./LoginPage.css";
-import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/auth.context";
-import authService from "../../services/auth.service";
+import './LoginPage.css';
+import { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/auth.context';
+import authService from '../../services/auth.service';
 
 function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(undefined);
 
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ function LoginPage() {
         // and at last navigate to the home page
         storeToken(response.data.authToken);
         authenticateUser();
-        navigate("/");
+        navigate('/');
       })
       .catch((error) => {
         // If the request resolves with an error, set the error message in the state
@@ -64,8 +64,8 @@ function LoginPage() {
       </form>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      <p>Don't have an account yet?</p>
-      <Link to={"/signup"}> Sign Up</Link>
+      <p className="text-3xl font-bold underline">Don't have an account yet?</p>
+      <Link to={'/signup'}> Sign Up</Link>
     </div>
   );
 }

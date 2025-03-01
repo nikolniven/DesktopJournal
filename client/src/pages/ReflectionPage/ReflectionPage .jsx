@@ -12,11 +12,8 @@ function ReflectionPage() {
   }
 
   return (
-    <div className="flex">
-      <div>
-        <TabsCard />
-      </div>
-      <form className="mt-[8vh] w-[55vh]">
+    <div className="flex flex-col lg:flex-row mt-[8vh] px-4 lg:px-10 space-y-6 lg:space-y-0 lg:space-x-10 w-full max-w-screen-lg mx-auto">
+      <form className="w-full lg:w-[55vh]">
         <div className="w-full mb-4 border border-indigo-200 rounded-lg bg-indigo-100 dark:bg-indigo-700 dark:border-indigo-600">
           <div className="flex items-center justify-between px-3 py-2 border-b border-indigo-200 dark:border-indigo-600">
             <div className="flex flex-wrap items-center divide-indigo-200 sm:divide-x sm:rtl:divide-x-reverse dark:divide-indigo-600">
@@ -41,7 +38,7 @@ function ReflectionPage() {
             </div>
           </div>
           <textarea
-            className="w-full h-60 p-3 bg-indigo-50 border-none rounded-lg dark:bg-indigo-800 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            className="w-full h-60 lg:h-80 p-3 bg-indigo-50 border-none rounded-lg dark:bg-indigo-800 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
             placeholder="Write something..."
           ></textarea>
           <div className="flex justify-end p-2">
@@ -54,6 +51,9 @@ function ReflectionPage() {
           </div>
         </div>
       </form>
+      <div className="flex flex-col items-center space-y-6">
+        <TabsCard />
+      </div>
     </div>
   );
 }

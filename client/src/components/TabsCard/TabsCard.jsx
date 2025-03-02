@@ -1,6 +1,3 @@
-import { Link } from 'react-router-dom';
-// import { useContext, useState } from 'react';
-import { AuthContext } from '../../context/auth.context';
 import { useState } from 'react';
 
 const moodOptions = {
@@ -23,48 +20,53 @@ const moodOptions = {
   ],
 };
 
-function TabsCard() {
-  const [dropdown, setDropdown] = useState(null);
-  const [selectedMoods, setSelectedMoods] = useState({
-    somewhatUp: null,
+function TabsCard({ onMoodSelection }) {
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [moodSelections, setMoodSelections] = useState({
+    positive: null,
     neutral: null,
-    somewhatDown: null,
+    negative: null,
   });
 
-  const toggleDropdown = (type) => {
-    setDropdown(dropdown === type ? null : type);
+  const handleDropdownToggle = (category) => {
+    setActiveDropdown(activeDropdown === category ? null : category);
   };
 
-  const selectMood = (type, mood) => {
-    setSelectedMoods({ ...selectedMoods, [type]: mood });
-    setTimeout(() => setDropdown(null), 800);
+  const handleMoodSelection = (category, mood) => {
+    setMoodSelections({ ...moodSelections, [category]: mood });
+    // Call parent component's handler with proper IDs
+    onMoodSelection({
+      moodCategoryId: category,
+      moodExtensiveId: mood,
+    });
+    setTimeout(() => setActiveDropdown(null), 800);
   };
 
   return (
     <div className="inline-flex flex-col items-center rounded-md shadow-xs w-full">
-      {Object.keys(moodOptions).map((type, index) => (
+      {Object.keys(moodOptions).map((category, index) => (
         <div key={index} className="w-full">
           <button
-            onClick={() => toggleDropdown(type)}
+            onClick={() => handleDropdownToggle(category)}
             className={`w-full px-4 py-4 text-sm font-medium text-lilac-700 bg-lilac-100 border border-lilac-300 rounded-lg hover:bg-lilac-200 focus:z-10 focus:ring-2 focus:ring-lilac-700 transition-colors duration-300 ${
-              selectedMoods[type] ? 'bg-lilac-300' : ''
+              moodSelections[category] ? 'bg-lilac-300' : ''
             }`}
           >
-            {type === 'positive'
+            {category === 'positive'
               ? 'Somewhat up'
-              : type === 'neutral'
+              : category === 'neutral'
               ? 'Neutral'
               : 'Somewhat down'}
           </button>
-          {dropdown === type && (
+          {activeDropdown === category && (
             <div className="grid grid-cols-3 gap-4 p-4 bg-lilac-100 border border-lilac-300 rounded-lg transition-opacity duration-300">
-              {moodOptions[type].map((mood, idx) => (
+              {moodOptions[category].map((mood, idx) => (
                 <button
                   key={idx}
-                  onClick={() => selectMood(type, mood)}
+                  onClick={() => handleMoodSelection(category, mood)}
                   className={`flex items-center justify-center h-16 text-lilac-700 bg-white border border-lilac-300 rounded-lg 
                     ${
-                      selectedMoods[type] === mood
+                      moodSelections[category] === mood
                         ? 'bg-lilac-300 text-purple-300'
                         : 'hover:bg-lilac-50'
                     } 
@@ -81,5 +83,9 @@ function TabsCard() {
     </div>
   );
 }
+
+TabsCard.defaultProps = {
+  onMoodSelection: () => {}, // Provides a default empty function if prop isn't passed
+};
 
 export default TabsCard;

@@ -13,6 +13,7 @@ import IsAnon from './components/IsAnon/IsAnon';
 
 import EntriesPage from './pages/EntriesPage/EntriesPage';
 import ReflectionPage from './pages/ReflectionPage/ReflectionPage ';
+
 import TabsCard from './components/TabsCard/TabsCard';
 
 function App() {
@@ -21,46 +22,52 @@ function App() {
       <Navbar />
 
       <main className="flex-1 container mx-auto p-4">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-
-          <Route
-            path="/profile"
-            element={
-              <IsPrivate>
-                <ProfilePage />
-              </IsPrivate>
-            }
-          />
-
-          <Route
-            path="/signup"
-            element={
-              <IsAnon>
-                <SignupPage />
-              </IsAnon>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <IsAnon>
-                <LoginPage />
-              </IsAnon>
-            }
-          />
-          <Route path="/entries" element={<EntriesPage />} />
-          <Route
-            path="/reflection"
-            element={
-              <IsPrivate>
-                <MoodProviderWrapper>
+        <MoodProviderWrapper>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/profile"
+              element={
+                <IsPrivate>
+                  <ProfilePage />
+                </IsPrivate>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <IsAnon>
+                  <SignupPage />
+                </IsAnon>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <IsAnon>
+                  <LoginPage />
+                </IsAnon>
+              }
+            />
+            <Route
+              path="/entries"
+              element={
+                <IsPrivate>
+                  <EntriesPage />
+                </IsPrivate>
+              }
+            />
+            <Route
+              path="/reflection"
+              element={
+                <IsPrivate>
                   <ReflectionPage />
-                </MoodProviderWrapper>
-              </IsPrivate>
-            }
-          />
-        </Routes>
+                  <EntriesPage />
+                </IsPrivate>
+              }
+            />
+          </Routes>
+        </MoodProviderWrapper>
       </main>
     </div>
   );

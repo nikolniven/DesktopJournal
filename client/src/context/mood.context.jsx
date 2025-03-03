@@ -1,70 +1,66 @@
 import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
-export const MoodContext = createContext();
+export const MoodContext = createContext({
+  categoryIds: {},
+  extensiveMoodIds: {},
+  isLoading: true,
+});
 
 export function MoodProviderWrapper({ children }) {
   const [categoryIds, setCategoryIds] = useState({});
-  const [extensiveMoodIds, setExtensiveMoodIds] = useState({}); // Fixed naming
+  const [extensiveMoodIds, setExtensiveMoodIds] = useState({});
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
 
   useEffect(() => {
-    const fetchCategoryIds = async () => {
+    const fetchMoodData = async () => {
       try {
+        setIsLoading(true);
         const storedToken = localStorage.getItem('authToken');
-        const response = await axios.get(
-          'http://localhost:5005/mood-categories',
-          {
-            headers: { Authorization: `Bearer ${storedToken}` },
-          },
-        );
+        if (!storedToken) {
+          throw new Error('No auth token found');
+        }
 
-        const idMapping = {};
-        response.data.forEach((category) => {
-          idMapping[category.name] = category._id;
+        const [categoriesRes, moodsRes] = await Promise.all([
+          axios.get('http://localhost:5005/mood-categories', {
+            headers: { Authorization: `Bearer ${storedToken}` },
+          }),
+          axios.get('http://localhost:5005/moods-extensive', {
+            headers: { Authorization: `Bearer ${storedToken}` },
+          }),
+        ]);
+
+        const categoryMapping = {};
+        categoriesRes.data.forEach((category) => {
+          categoryMapping[category.name] = category._id;
         });
-        setCategoryIds(idMapping);
-        console.log('Category IDs:', idMapping);
-      } catch (error) {
-        console.error('Error fetching category IDs:', error);
-      }
-    };
-
-    fetchCategoryIds();
-  }, []);
-
-  useEffect(() => {
-    const fetchExtensiveMoodIds = async () => {
-      // Fixed function name
-      try {
-        const storedToken = localStorage.getItem('authToken');
-        const response = await axios.get(
-          'http://localhost:5005/moods-extensive',
-          {
-            headers: { Authorization: `Bearer ${storedToken}` },
-          },
-        );
 
         const moodMapping = {};
-        response.data.forEach((mood) => {
+        moodsRes.data.forEach((mood) => {
           moodMapping[mood.mood] = mood._id;
         });
-        setExtensiveMoodIds(moodMapping); // Fixed setter name
 
-        console.log('Extensive Moods mapping:', moodMapping);
-        console.log('Raw response data:', response.data);
+        setCategoryIds(categoryMapping);
+        setExtensiveMoodIds(moodMapping);
       } catch (error) {
-        console.error('Error fetching extensive moods:', error);
+        console.error('Error fetching mood data:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchExtensiveMoodIds();
+    fetchMoodData();
   }, []);
 
   return (
-    <MoodContext.Provider value={{ categoryIds, extensiveMoodIds }}>
-      {' '}
-      {/* Fixed prop name */}
-      {children} {/* Destructured from props */}
+    <MoodContext.Provider
+      value={{
+        categoryIds,
+        extensiveMoodIds,
+        isLoading,
+      }}
+    >
+      {children}
     </MoodContext.Provider>
   );
 }

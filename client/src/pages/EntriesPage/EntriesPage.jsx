@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import DateFilter from '../../components/DateFilter/DateFilter';
+import MoodFilter from '../../components/MoodFilter/MoodFilter';
 
 function EntriesPage() {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filters, setFilters] = useState({
+    dateRange: null,
+    moodCategory: '',
+  });
 
   const fetchEntries = async (dateFilter = {}) => {
     try {
@@ -23,11 +28,20 @@ function EntriesPage() {
 
   useEffect(() => {
     fetchEntries();
-  }, []);
+  }, [filters]); // Re-fetch when filters change
 
-  const handleFilterChange = (dateRange) => {
-    setLoading(true);
-    fetchEntries(dateRange);
+  const handleDateFilter = (dateRange) => {
+    setFilters((prev) => ({
+      ...prev,
+      dateRange,
+    }));
+  };
+
+  const handleMoodFilter = (moodCategory) => {
+    setFilters((prev) => ({
+      ...prev,
+      moodCategory,
+    }));
   };
 
   return (
@@ -35,8 +49,8 @@ function EntriesPage() {
       <h1 className="text-2xl font-bold text-gray-800 mb-6">
         My Journal Entries
       </h1>
-      <DateFilter onFilterChange={handleFilterChange} />
-
+      <DateFilter onFilterChange={handleDateFilter} />
+      <MoodFilter handleMoodFilter={handleMoodFilter} />
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {entries.map((entry) => (
           <div

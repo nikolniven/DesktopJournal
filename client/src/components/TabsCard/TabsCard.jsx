@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useContext } from 'react';
+import { MoodContext } from '../../context/mood.context';
 
 const moodOptions = {
   Positive: [
@@ -27,42 +27,14 @@ const displayMapping = {
 };
 
 function TabsCard({ onMoodSelection }) {
+  const { categoryIds, extensiveMoodIds } = useContext(MoodContext);
+
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [moodSelections, setMoodSelections] = useState({
     Positive: null,
     Neutral: null,
     Negative: null,
   });
-  const [categoryIds, setCategoryIds] = useState({}); //moods stored +id stored here
-  const [categoryData, setCategoryData] = useState(null);
-
-  useEffect(() => {
-    const fetchCategoryIds = async () => {
-      try {
-        const storedToken = localStorage.getItem('authToken');
-        const response = await axios.get(
-          'http://localhost:5005/mood-categories',
-          {
-            headers: { Authorization: `Bearer ${storedToken}` },
-          },
-        );
-
-        setCategoryData(response.data);
-        console.log('Category Data stored externally:', categoryData);
-
-        const idMapping = {};
-        response.data.forEach((category) => {
-          idMapping[category.name] = category._id;
-        });
-        setCategoryIds(idMapping);
-        console.log('Category IDs:', idMapping);
-      } catch (error) {
-        console.error('Error fetching category IDs:', error);
-      }
-    };
-
-    fetchCategoryIds();
-  }, []);
 
   const handleMoodSelection = (displayName, mood) => {
     // Convert display name to category name
@@ -72,17 +44,15 @@ function TabsCard({ onMoodSelection }) {
 
     // Debug logs
     console.log('=----- Mood Selection Data -----=');
-    // console.log('Display Name:', displayName);
-    // console.log('Category Name:', categoryName);
-    // console.log('Category IDs available:', categoryIds);
-    // console.log('Category ID for selection:', categoryIds[categoryName]);
-    // console.log('Selected Mood:', mood);
-    // console.log('Full category data:', categoryData);
-    console.log('Current mood selections:', moodSelections);
+    console.log('Display Name:', displayName);
+    console.log('Category Name:', categoryName);
+    console.log('Category ID:', categoryIds[categoryName]);
+    console.log('Mood:', mood);
+    console.log('Mood ID:', extensiveMoodIds[mood]);
 
     onMoodSelection({
       moodCategoryId: categoryIds[categoryName],
-      moodExtensiveId: mood,
+      moodExtensiveId: extensiveMoodIds[mood],
     });
     setTimeout(() => setActiveDropdown(null), 800);
   };

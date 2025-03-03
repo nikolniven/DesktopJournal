@@ -1,5 +1,6 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
+import { MoodProviderWrapper } from './context/mood.context';
 
 import HomePage from './pages/HomePage/HomePage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
@@ -53,7 +54,9 @@ function App() {
             path="/reflection"
             element={
               <IsPrivate>
-                <ReflectionPage />
+                <MoodProviderWrapper>
+                  <ReflectionPage />
+                </MoodProviderWrapper>
               </IsPrivate>
             }
           />

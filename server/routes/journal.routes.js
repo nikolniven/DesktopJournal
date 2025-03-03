@@ -25,11 +25,35 @@ router.post('/', isAuthenticated, (req, res) => {
 });
 
 // Get all journal entries of the logged-in user with populated mood data
+// router.get('/', isAuthenticated, (req, res) => {
+//   const userId = req.payload._id;
+
+//   Journal.find({ userId })
+//     .populate('moodCategoryId moodExtensiveId') // Populates moodCategory and mood details
+//     .then((entries) => res.json(entries))
+//     .catch((error) => {
+//       console.error(error);
+//       res.status(500).json({ message: 'Error fetching journal entries' });
+//     });
+// });
+
 router.get('/', isAuthenticated, (req, res) => {
   const userId = req.payload._id;
+  const { startDate, endDate } = req.query;
 
-  Journal.find({ userId })
-    .populate('moodCategoryId moodExtensiveId') // Populates moodCategory and mood details
+  let dateFilter = { userId };
+
+  // Add date range filter if dates are provided
+  if (startDate && endDate) {
+    dateFilter.createdAt = {
+      $gte: new Date(startDate),
+      $lte: new Date(endDate),
+    };
+  }
+
+  Journal.find(dateFilter)
+    .populate('moodCategoryId moodExtensiveId')
+    .sort({ createdAt: -1 })
     .then((entries) => res.json(entries))
     .catch((error) => {
       console.error(error);

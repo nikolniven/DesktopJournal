@@ -13,6 +13,7 @@ import IsAnon from './components/IsAnon/IsAnon';
 
 import EntriesPage from './pages/EntriesPage/EntriesPage';
 import ReflectionPage from './pages/ReflectionPage/ReflectionPage ';
+import UserPage from './pages/UserPage/UserPage';
 
 import TabsCard from './components/TabsCard/TabsCard';
 
@@ -29,7 +30,7 @@ function App() {
               path="/profile"
               element={
                 <IsPrivate>
-                  <ProfilePage />
+                  <UserPage />
                 </IsPrivate>
               }
             />
@@ -65,6 +66,14 @@ function App() {
                 </IsPrivate>
               }
             />
+            {/* <Route
+              path="/profile"
+              element={
+                <IsPrivate>
+                  <UserPage />
+                </IsPrivate>
+              }
+            /> */}
           </Routes>
         </MoodProviderWrapper>
       </main>

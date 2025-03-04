@@ -10,13 +10,14 @@ function MoodFilter({ handleMoodFilter }) {
   const isLoading = context?.isLoading;
 
   const handleMoodChange = (value) => {
-    setSelectedMood(value);
     if (value === '') {
       handleMoodFilter({ mood: '', categoryId: null });
+      setSelectedMood(value);
       return;
     }
     const categoryId = categoryIds?.[value];
     handleMoodFilter({ mood: value, categoryId });
+    setSelectedMood(value);
   };
 
   if (!context || isLoading) {

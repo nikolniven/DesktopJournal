@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Journal = require('../models/Journal.model');
 const { isAuthenticated } = require('../middleware/jwt.middleware');
+var mongoose = require('mongoose');
 
 // Create a new journal entry
 router.post('/', isAuthenticated, (req, res) => {
@@ -39,22 +40,31 @@ router.post('/', isAuthenticated, (req, res) => {
 
 router.get('/', isAuthenticated, (req, res) => {
   const userId = req.payload._id;
-  const { startDate, endDate } = req.query;
-
-  let dateFilter = { userId };
+  const { startDate, endDate, mood, categoryId } = req.query;
+  let filterOptions = { userId };
 
   // Add date range filter if dates are provided
   if (startDate && endDate) {
-    dateFilter.createdAt = {
+    filterOptions.createdAt = {
       $gte: new Date(startDate),
       $lte: new Date(endDate),
     };
   }
 
-  Journal.find(dateFilter)
+  if (categoryId) {
+    filterOptions.moodCategoryId = new mongoose.Types.ObjectId(categoryId);
+  }
+
+  console.log(filterOptions);
+  // return;
+
+  Journal.find(filterOptions)
     .populate('moodCategoryId moodExtensiveId')
     .sort({ createdAt: -1 })
-    .then((entries) => res.json(entries))
+    .then((entries) => {
+      console.log(entries);
+      res.json(entries);
+    })
     .catch((error) => {
       console.error(error);
       res.status(500).json({ message: 'Error fetching journal entries' });

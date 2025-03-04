@@ -3,13 +3,11 @@ import { useState } from 'react';
 function DateFilter({ onFilterChange }) {
   const [month, setMonth] = useState('');
   const [year, setYear] = useState(new Date().getFullYear());
-
   const handleFilter = () => {
     if (month) {
       // Create date range for selected month
       const startDate = new Date(year, parseInt(month) - 1, 1);
       const endDate = new Date(year, parseInt(month), 0);
-
       onFilterChange({
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),

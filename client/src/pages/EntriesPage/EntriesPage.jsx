@@ -11,12 +11,12 @@ function EntriesPage() {
     moodCategory: '',
   });
 
-  const fetchEntries = async (dateFilter = {}) => {
+  const fetchEntries = async (params = {}) => {
     try {
       const storedToken = localStorage.getItem('authToken');
       const response = await axios.get('http://localhost:5005/journal', {
         headers: { Authorization: `Bearer ${storedToken}` },
-        params: dateFilter,
+        params,
       });
       setEntries(response.data);
       setLoading(false);
@@ -27,7 +27,8 @@ function EntriesPage() {
   };
 
   useEffect(() => {
-    fetchEntries();
+    const params = { ...filters.dateRange, ...filters.moodCategory };
+    fetchEntries(params);
   }, [filters]); // Re-fetch when filters change
 
   const handleDateFilter = (dateRange) => {

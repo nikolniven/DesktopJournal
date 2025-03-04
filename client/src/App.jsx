@@ -62,7 +62,6 @@ function App() {
               element={
                 <IsPrivate>
                   <ReflectionPage />
-                  <EntriesPage />
                 </IsPrivate>
               }
             />

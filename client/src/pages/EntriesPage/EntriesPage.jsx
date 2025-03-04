@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import DateFilter from '../../components/DateFilter/DateFilter';
 import MoodFilter from '../../components/MoodFilter/MoodFilter';
@@ -74,14 +75,16 @@ function EntriesPage() {
 
             <p className="text-gray-700 mb-4 line-clamp-3">{entry.content}</p>
 
-            <button
-              className="text-lilac-600 hover:text-lilac-700 text-sm font-medium"
-              onClick={() => {
-                /* Add view detail handler */
-              }}
-            >
-              Read more →
-            </button>
+            <Link to={`/entries/${entry._id}`}>
+              <button
+                className="text-lilac-600 hover:text-lilac-700 text-sm font-medium"
+                onClick={() => {
+                  /* Add view detail handler */
+                }}
+              >
+                Read more →
+              </button>
+            </Link>
           </div>
         ))}
       </div>

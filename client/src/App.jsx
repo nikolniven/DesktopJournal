@@ -16,6 +16,7 @@ import ReflectionPage from './pages/ReflectionPage/ReflectionPage ';
 import UserPage from './pages/UserPage/UserPage';
 
 import TabsCard from './components/TabsCard/TabsCard';
+import EntriesDetailPage from './pages/EntriesDetailPage/EntriesDetailPage';
 
 function App() {
   return (
@@ -66,14 +67,14 @@ function App() {
                 </IsPrivate>
               }
             />
-            {/* <Route
-              path="/profile"
+            <Route
+              path="/entries/:entryId"
               element={
                 <IsPrivate>
-                  <UserPage />
+                  <EntriesDetailPage />
                 </IsPrivate>
               }
-            /> */}
+            />
           </Routes>
         </MoodProviderWrapper>
       </main>

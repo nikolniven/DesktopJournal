@@ -57,7 +57,7 @@ function EntriesPage() {
         {entries.map((entry) => (
           <div
             key={entry._id}
-            className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6"
+            className="bg-indigo-50 rounded-lg shadow-sm hover:shadow-md transition-shadow p-6"
           >
             <div className="flex justify-between items-start mb-4">
               <div className="flex gap-2">

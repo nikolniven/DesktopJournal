@@ -110,7 +110,7 @@ const Navbar = () => {
       <li>
         <button
           onClick={logOutUser}
-          className="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 w-full"
+          className="block py-2 px-3 text-white bg-indigo-700 rounded-sm md:bg-transparent md:text-indigo-700 md:p-0 dark:text-white md:dark:text-indigo-500 w-full"
           aria-current="page"
         >
           Logout
@@ -126,7 +126,7 @@ const Navbar = () => {
           href="https://flowbite.com/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white mr-4">
             {user && <p>Welcome, {user.name}</p>}
           </span>
         </div>
@@ -161,19 +161,17 @@ const Navbar = () => {
           id="navbar-default"
         >
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            {activeLinks.map((link, i) => {
-              return (
-                <li key={i + link.title}>
-                  <Link
-                    to={link.to}
-                    className="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
-                    aria-current="page"
-                  >
-                    {link.title}
-                  </Link>
-                </li>
-              );
-            })}
+            {activeLinks.map((link, i) => (
+              <li key={i + link.title}>
+                <Link
+                  to={link.to}
+                  className="block py-2 px-3 text-white bg-indigo-700 rounded-sm md:bg-transparent md:text-indigo-700 md:p-0 dark:text-white md:dark:text-indigo-500"
+                  aria-current="page"
+                >
+                  {link.title}
+                </Link>
+              </li>
+            ))}
             {isLoggedIn && renderLogout()}
           </ul>
         </div>

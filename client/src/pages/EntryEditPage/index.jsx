@@ -6,6 +6,8 @@ export default function EntryEditPage() {
   const [specificEntry, setEntry] = useState('');
   const { entryId } = useParams();
 
+  const navigate = useNavigate();
+
   const fetchEntry = async () => {
     try {
       const storedToken = localStorage.getItem('authToken');
@@ -24,8 +26,6 @@ export default function EntryEditPage() {
   useEffect(() => {
     fetchEntry();
   }, [entryId]);
-
-  const navigate = useNavigate();
   const updateEntry = async () => {
     try {
       const storedToken = localStorage.getItem('authToken');
@@ -39,6 +39,19 @@ export default function EntryEditPage() {
       navigate(-1);
     } catch (error) {
       console.error('Error submitting update journal entry:', error);
+      console.log('Error details:', error.response?.data);
+    }
+  };
+
+  const deleteEntry = async () => {
+    try {
+      const storedToken = localStorage.getItem('authToken');
+      await axios.delete(`http://localhost:5005/journal/${entryId}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      });
+      navigate(-2);
+    } catch (error) {
+      console.error('Error deleting journal entry:', error);
       console.log('Error details:', error.response?.data);
     }
   };
@@ -58,7 +71,10 @@ export default function EntryEditPage() {
           >
             Update
           </button>
-          <button className="bg-indigo-300 hover:bg-indigo-400 text-white rounded-2xl shadow-md px-4 py-2">
+          <button
+            onClick={deleteEntry}
+            className="bg-indigo-300 hover:bg-indigo-400 text-white rounded-2xl shadow-md px-4 py-2"
+          >
             Delete
           </button>
           <button

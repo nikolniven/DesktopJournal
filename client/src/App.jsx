@@ -18,6 +18,7 @@ import UserPage from './pages/UserPage/UserPage';
 import TabsCard from './components/TabsCard/TabsCard';
 import EntriesDetailPage from './pages/EntriesDetailPage/EntriesDetailPage';
 import EntryEditPage from './pages/EntryEditPage';
+import DreamPage from './pages/DreamPage/DreamPage';
 
 function App() {
   return (
@@ -81,6 +82,14 @@ function App() {
               element={
                 <IsPrivate>
                   <EntryEditPage />
+                </IsPrivate>
+              }
+            />
+            <Route
+              path="/dream-page"
+              element={
+                <IsPrivate>
+                  <DreamPage />
                 </IsPrivate>
               }
             />

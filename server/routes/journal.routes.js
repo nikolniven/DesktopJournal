@@ -55,14 +55,14 @@ router.get('/', isAuthenticated, (req, res) => {
     filterOptions.moodCategoryId = new mongoose.Types.ObjectId(categoryId);
   }
 
-  console.log(filterOptions);
+  // console.log(filterOptions);
   // return;
 
   Journal.find(filterOptions)
     .populate('moodCategoryId moodExtensiveId')
     .sort({ createdAt: -1 })
     .then((entries) => {
-      console.log(entries);
+      // console.log(entries);
       res.json(entries);
     })
     .catch((error) => {
@@ -92,14 +92,9 @@ router.get('/:id', isAuthenticated, (req, res) => {
 // Update a journal entry and return the updated entry with populated mood data
 router.put('/:id', isAuthenticated, (req, res) => {
   const { id } = req.params;
-  const { content, moodCategoryId, moodExtensiveId } = req.body;
-  const userId = req.payload._id;
+  const { content } = req.body;
 
-  Journal.findOneAndUpdate(
-    { _id: id, userId },
-    { content, moodCategoryId, moodExtensiveId },
-    { new: true },
-  )
+  Journal.findByIdAndUpdate(id, { content }, { new: true })
     .populate('moodCategoryId moodExtensiveId')
     .then((updatedEntry) => {
       if (!updatedEntry)

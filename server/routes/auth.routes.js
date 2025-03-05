@@ -131,9 +131,9 @@ router.put('/change-password', isAuthenticated, async (req, res) => {
 
   try {
     const foundUser = await User.findById(userId);
-    console.log('Previous Password:', previousPassword);
-    console.log('Found User:', foundUser);
-    console.log('Found User Password:', foundUser?.password);
+    // console.log('Previous Password:', previousPassword);
+    // console.log('Found User:', foundUser);
+    // console.log('Found User Password:', foundUser?.password);
 
     if (!foundUser) {
       return res.status(401).json({ message: 'User not found.' });

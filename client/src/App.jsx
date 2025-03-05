@@ -17,6 +17,7 @@ import UserPage from './pages/UserPage/UserPage';
 
 import TabsCard from './components/TabsCard/TabsCard';
 import EntriesDetailPage from './pages/EntriesDetailPage/EntriesDetailPage';
+import EntryEditPage from './pages/EntryEditPage';
 
 function App() {
   return (
@@ -72,6 +73,14 @@ function App() {
               element={
                 <IsPrivate>
                   <EntriesDetailPage />
+                </IsPrivate>
+              }
+            />
+            <Route
+              path="/entries/:entryId/edit"
+              element={
+                <IsPrivate>
+                  <EntryEditPage />
                 </IsPrivate>
               }
             />

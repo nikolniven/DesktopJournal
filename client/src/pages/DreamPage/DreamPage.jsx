@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/auth.context';
 import { useSpeechRecognition } from '../../hooks/useSpeech';
+import { Buffer } from 'buffer';
 
 function AudioPromptPage() {
   const { user } = useContext(AuthContext);
@@ -19,7 +20,7 @@ function AudioPromptPage() {
   const [transcript, setTranscript] = useState('');
 
   useEffect(() => {
-    console.log('User:', user);
+    // console.log('User:', user);
   }, [user]);
 
   const handleTextChange = (e) => {
@@ -42,8 +43,9 @@ function AudioPromptPage() {
 
       mediaRecorder.onstop = () => {
         const audioBlob = new Blob(audioChunksRef.current, {
-          type: 'audio/wav',
+          type: 'video',
         });
+
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudioUrl(audioUrl);
       };
@@ -79,25 +81,22 @@ function AudioPromptPage() {
     setLoading(true);
 
     try {
-      // 1. Upload audio to Cloudinary
       const audioBlob = await fetch(audioUrl).then((r) => r.blob());
+      const soundFile = new File([audioBlob], 'recording.mp3', {
+        type: 'audio/mpeg',
+      });
       const formData = new FormData();
-      formData.append('file', audioBlob);
-      console.log(formData);
-      // 2. Save audio URL and transcript to your backend
+      // formData.append('soundURL', audioBlob, 'recording.mp4');
+      formData.append('soundURL', soundFile);
+      formData.append('transcript', transcript);
+
       const storedToken = localStorage.getItem('authToken');
-      await axios.post(
-        'http://localhost:5005/dream-audio',
-        {
-          transcript,
-          ...formData,
+      await axios.post('http://localhost:5005/dream-audio', formData, {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+          'Content-type': 'multipart/form-data',
         },
-        {
-          headers: {
-            Authorization: `Bearer ${storedToken}`,
-          },
-        },
-      );
+      });
 
       // Reset form
       setAudioUrl(null);
@@ -145,7 +144,7 @@ function AudioPromptPage() {
 
           {audioUrl && (
             <audio controls>
-              <source src={audioUrl} type="audio/wav" />
+              <source src={audioUrl} type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
           )}

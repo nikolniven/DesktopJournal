@@ -29,11 +29,12 @@ router.post(
   (req, res) => {
     console.log('uploaded file', req.file);
     console.log(req.body);
+    return;
     if (!req.file) {
       next(new Error('No file uploaded!'));
       return;
     }
-    return;
+
     const { audio, transcript } = req.body;
     const userId = req.payload._id;
 

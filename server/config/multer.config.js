@@ -7,6 +7,7 @@ const storage = new CloudinaryStorage({
   params: {
     folder: 'audio_entries', // Folder name in Cloudinary
     allowed_formats: ['wav', 'mp3', 'm4a'],
+    resource_type: 'auto',
   },
 });
 

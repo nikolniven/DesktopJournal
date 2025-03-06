@@ -19,6 +19,8 @@ import TabsCard from './components/TabsCard/TabsCard';
 import EntriesDetailPage from './pages/EntriesDetailPage/EntriesDetailPage';
 import EntryEditPage from './pages/EntryEditPage';
 import DreamPage from './pages/DreamPage/DreamPage';
+import DreamsEntriesPage from './pages/DreamsEntriesPage/DreamsEntriesPage';
+import DreamEntryDetailsPage from './pages/DreamEntryDetailsPage';
 
 function App() {
   return (
@@ -90,6 +92,22 @@ function App() {
               element={
                 <IsPrivate>
                   <DreamPage />
+                </IsPrivate>
+              }
+            />
+            <Route
+              path="/dreams-entries"
+              element={
+                <IsPrivate>
+                  <DreamsEntriesPage />
+                </IsPrivate>
+              }
+            />
+            <Route
+              path="/dreams-entries/:dreamId"
+              element={
+                <IsPrivate>
+                  <DreamEntryDetailsPage />
                 </IsPrivate>
               }
             />

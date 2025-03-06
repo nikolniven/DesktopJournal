@@ -96,6 +96,7 @@ const Navbar = () => {
     { to: '/entries', title: 'My Entries' },
     { to: '/reflection', title: 'Reflection Log' },
     { to: '/dream-page', title: 'Dreams Log' },
+    {to: '/dreams-entries', title: "Dreams Entries"}
   ];
 
   const guestLinks = [

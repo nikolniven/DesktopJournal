@@ -22,10 +22,10 @@ export function MoodProviderWrapper({ children }) {
         }
 
         const [categoriesRes, moodsRes] = await Promise.all([
-          axios.get('http://localhost:5005/mood-categories', {
+          axios.get('http://localhost:5005/moods/categories', {
             headers: { Authorization: `Bearer ${storedToken}` },
           }),
-          axios.get('http://localhost:5005/moods-extensive', {
+          axios.get('http://localhost:5005/moods/extensive', {
             headers: { Authorization: `Bearer ${storedToken}` },
           }),
         ]);

@@ -20,7 +20,6 @@ function ReflectionPage() {
     setSelectedMoods(moods);
   };
 
-  
   useEffect(() => {
     console.log('selectedMoods updated in ReflectionPage:', selectedMoods);
   }, [selectedMoods]);
@@ -30,7 +29,7 @@ function ReflectionPage() {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row mt-[8vh] px-4 lg:px-10 space-y-6 lg:space-y-0 lg:space-x-10 w-full max-w-screen-lg mx-auto">
+    <div className="flex flex-col lg:flex-row mt-[10vh] px-4 lg:px-100 space-y-8 lg:space-y-0 lg:space-x-20 w-full max-w-screen-lg mx-auto">
       <ReflectionForm selectedMoods={selectedMoods} />
       <div className="flex flex-col items-center space-y-6">
         <TabsCard onMoodSelection={handleMoodSelection} />

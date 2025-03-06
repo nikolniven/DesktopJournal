@@ -50,12 +50,15 @@ function ReflectionForm({ selectedMoods }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full lg:w-[55vh]">
+    <form onSubmit={handleSubmit} className="w-full lg:w-[65vh]">
       <div className="w-full mb-4 border border-indigo-200 rounded-lg bg-indigo-100 dark:bg-indigo-700 dark:border-indigo-600">
         <div className="flex items-center justify-between px-3 py-2 border-b border-indigo-200 dark:border-indigo-600">
-          <div className="flex flex-wrap items-center divide-indigo-200 sm:divide-x sm:rtl:divide-x-reverse dark:divide-indigo-600">
-            <div className="flex items-center space-x-1 rtl:space-x-reverse sm:pe-4">
-              {[
+          <div className="flex flex-wrap items-center justify-center w-full divide-indigo-200 sm:divide-x sm:rtl:divide-x-reverse dark:divide-indigo-600">
+            <div className="flex items-center justify-center w-full sm:pe-4">
+              <h3 className="text-indigo-800 h-7 text-center">
+                Unfold Your Thoughts 😊
+              </h3>
+              {/* {[
                 { icon: '📎', tooltip: 'Attach file' },
                 { icon: '📍', tooltip: 'Embed map' },
                 { icon: '🖼️', tooltip: 'Upload image' },
@@ -70,12 +73,12 @@ function ReflectionForm({ selectedMoods }) {
                   {item.icon}
                   <span className="sr-only">{item.tooltip}</span>
                 </button>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>
         <textarea
-          className="w-full h-60 lg:h-80 p-3 bg-indigo-50 border-none rounded-lg dark:bg-indigo-800 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+          className="w-full h-96 lg:h-[25rem] p-3 bg-indigo-50 border-none rounded-lg dark:bg-indigo-800 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
           placeholder="Write something..."
           value={text}
           onChange={handleChange}

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/auth.context';
+import './index.css';
 
 // function Navbar() {
 //   // Subscribe to the AuthContext to gain access to
@@ -96,7 +97,7 @@ const Navbar = () => {
     { to: '/entries', title: 'My Entries' },
     { to: '/reflection', title: 'Reflection Log' },
     { to: '/dream-page', title: 'Dreams Log' },
-    {to: '/dreams-entries', title: "Dreams Entries"}
+    { to: '/dreams-entries', title: 'Dreams Entries' },
   ];
 
   const guestLinks = [
@@ -123,15 +124,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <div
-          href="https://flowbite.com/"
-          className="flex items-center space-x-3 rtl:space-x-reverse"
-        >
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white mr-4">
-            {user && <p>Welcome, {user.name}</p>}
-          </span>
-        </div>
+      <div className="nav-container max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-6 py-7">
         <button
           onClick={toggleMenu}
           type="button"
@@ -176,6 +169,16 @@ const Navbar = () => {
             ))}
             {isLoggedIn && renderLogout()}
           </ul>
+        </div>
+        <div className="flex items-center space-x-3 rtl:space-x-reverse pt-4 ">
+          {user && !isMenuOpen && (
+            <p
+              className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white mr-4 text-purple-700"
+              style={{ whiteSpace: 'initial' }}
+            >
+              Welcome, {user.name}
+            </p>
+          )}
         </div>
       </div>
     </nav>

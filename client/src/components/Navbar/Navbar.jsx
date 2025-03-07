@@ -185,7 +185,7 @@ const Navbar = () => {
               className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white mr-4 text-purple-700 md:text-right"
               style={{ whiteSpace: 'initial' }}
             >
-              Welcome, {user.name}
+              Welcome back, {user.name} ✨
             </p>
           )}
         </div>

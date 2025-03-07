@@ -172,12 +172,12 @@ function AudioPromptPage() {
           )}
         </div>
 
-        <textarea
+        {/* <textarea
           className="w-full h-60 lg:h-20 p-3 bg-indigo-50 border-none rounded-lg dark:bg-indigo-800 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
           placeholder="Or write your prompt here..."
           value={text}
           onChange={handleTextChange}
-        ></textarea>
+        ></textarea> */}
 
         {error && <div className="text-red-500 mt-2">{error}</div>}
 

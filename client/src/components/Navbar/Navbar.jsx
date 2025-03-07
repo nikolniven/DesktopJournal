@@ -123,8 +123,17 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900">
-      <div className="nav-container max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-6 py-7">
+    <nav className="bg-white border-gray-200 dark:bg-gray-900 pr-10">
+      <div
+        className="nav-container max-w-screen-xl flex flex-wrap items-baseline justify-between mx-auto p-6 py-7 pr-5"
+        style={{
+          all: 'unset',
+          display: 'flex',
+          alignItems: 'baseline',
+          justifyContent: 'space-between',
+          padding: '1em',
+        }}
+      >
         <button
           onClick={toggleMenu}
           type="button"
@@ -173,7 +182,7 @@ const Navbar = () => {
         <div className="flex items-center space-x-3 rtl:space-x-reverse pt-4 ">
           {user && !isMenuOpen && (
             <p
-              className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white mr-4 text-purple-700"
+              className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white mr-4 text-purple-700 md:text-right"
               style={{ whiteSpace: 'initial' }}
             >
               Welcome, {user.name}

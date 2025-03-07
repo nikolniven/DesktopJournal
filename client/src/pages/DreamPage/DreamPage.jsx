@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
-import axios from "axios";
-import { AuthContext } from "../../context/auth.context";
-import { useSpeechRecognition } from "../../hooks/useSpeech";
-import { Buffer } from "buffer";
+import React, { useState, useContext, useEffect, useRef } from 'react';
+import axios from 'axios';
+import { AuthContext } from '../../context/auth.context';
+import { useSpeechRecognition } from '../../hooks/useSpeech';
+import { Buffer } from 'buffer';
 
 function AudioPromptPage() {
   const { user } = useContext(AuthContext);
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const [audioUrl, setAudioUrl] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [error, setError] = useState(null);
@@ -15,9 +15,10 @@ function AudioPromptPage() {
   const mediaRecorderRef = useRef(null);
   const streamRef = useRef(null);
   const audioChunksRef = useRef([]);
+  const [playbackUrl, setPlaybackUrl] = useState(null);
 
   // Add new state for transcript
-  const [transcript, setTranscript] = useState("");
+  const [transcript, setTranscript] = useState('');
 
   useEffect(() => {
     // console.log('User:', user);
@@ -25,6 +26,11 @@ function AudioPromptPage() {
 
   const handleTextChange = (e) => {
     setText(e.target.value);
+  };
+
+  //ADDTOFIXPLAY
+  const createPlayableAudio = (blob) => {
+    return new Blob(blob, { type: 'audio/webm' });
   };
 
   const handleStartRecording = async () => {
@@ -36,7 +42,7 @@ function AudioPromptPage() {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       streamRef.current = stream;
       const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: "video/x-matroska;codecs=avc1",
+        mimeType: 'video/x-matroska;codecs=avc1',
       });
       mediaRecorderRef.current = mediaRecorder;
 
@@ -46,17 +52,22 @@ function AudioPromptPage() {
 
       mediaRecorder.onstop = () => {
         const audioBlob = new Blob(audioChunksRef.current, {
-          type: "video/x-matroska;codecs=avc1",
+          type: 'video/x-matroska;codecs=avc1',
         });
+
+        // Create a playable version of the blob
+        const playableBlob = createPlayableAudio(audioChunksRef.current);
 
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudioUrl(audioUrl);
+
+        setPlaybackUrl(URL.createObjectURL(playableBlob));
       };
 
       mediaRecorder.start();
     } catch (err) {
-      console.error("Error accessing the microphone: ", err);
-      setError("Error accessing the microphone");
+      console.error('Error accessing the microphone: ', err);
+      setError('Error accessing the microphone');
       setIsRecording(false);
     }
   };
@@ -84,7 +95,7 @@ function AudioPromptPage() {
     e.preventDefault();
 
     if (!audioUrl) {
-      setError("Please record audio first");
+      setError('Please record audio first');
       return;
     }
 
@@ -93,28 +104,28 @@ function AudioPromptPage() {
 
     try {
       const audioBlob = await fetch(audioUrl).then((r) => r.blob());
-      const soundFile = new File([audioBlob], "recording.mp3", {
-        type: "video/x-matroska;codecs=avc1",
+      const soundFile = new File([audioBlob], 'recording.mp3', {
+        type: 'video/x-matroska;codecs=avc1',
       });
       const formData = new FormData();
       // formData.append('soundURL', audioBlob, 'recording.mp4');
-      formData.append("soundURL", soundFile);
-      formData.append("transcript", transcript);
+      formData.append('soundURL', soundFile);
+      formData.append('transcript', transcript);
 
-      const storedToken = localStorage.getItem("authToken");
-      await axios.post("http://localhost:5005/dream-audio", formData, {
+      const storedToken = localStorage.getItem('authToken');
+      await axios.post('http://localhost:5005/dream-audio', formData, {
         headers: {
           Authorization: `Bearer ${storedToken}`,
-          "Content-type": "multipart/form-data",
+          'Content-type': 'multipart/form-data',
         },
       });
 
       // Reset form
       setAudioUrl(null);
-      setTranscript("");
+      setTranscript('');
       setLoading(false);
     } catch (error) {
-      setError("Error saving recording");
+      setError('Error saving recording');
       console.error(error);
       setLoading(false);
     }
@@ -131,7 +142,7 @@ function AudioPromptPage() {
           type="text"
           readOnly
           value={speech.transcript}
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
         />
       </p>
       <form
@@ -147,15 +158,15 @@ function AudioPromptPage() {
             type="button"
             onClick={toggleRecording}
             className={`p-2 text-indigo-600 rounded-sm cursor-pointer hover:text-indigo-700 hover:bg-indigo-200 dark:text-indigo-400 dark:hover:text-indigo-300 dark:hover:bg-indigo-600 ${
-              isRecording ? "bg-red-500" : "bg-green-500"
+              isRecording ? 'bg-red-500' : 'bg-green-500'
             }`}
           >
-            {isRecording ? "Stop Recording" : "Start Recording"}
+            {isRecording ? 'Stop Recording' : 'Start Recording'}
           </button>
 
           {audioUrl && (
             <audio controls>
-              <source src={audioUrl} type="video/x-matroska;codecs=avc1" />
+              <source src={playbackUrl} type="audio/webm" />
               Your browser does not support the audio element.
             </audio>
           )}
@@ -174,11 +185,11 @@ function AudioPromptPage() {
           <button
             type="submit"
             className={`bg-indigo-300 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
-              loading ? "cursor-not-allowed opacity-50" : ""
+              loading ? 'cursor-not-allowed opacity-50' : ''
             }`}
             disabled={loading}
           >
-            {loading ? "Submitting..." : "Submit"}
+            {loading ? 'Submitting...' : 'Submit'}
           </button>
         </div>
       </form>

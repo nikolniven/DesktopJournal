@@ -24,7 +24,7 @@ import DreamEntryDetailsPage from './pages/DreamEntryDetailsPage';
 
 function App() {
   return (
-    <div className="App bg-gray-50 min-h-screen flex flex-col dark:bg-gray-900">
+    <div className="App bg-indigo-50 min-h-screen flex flex-col dark:bg-gray-900">
       <Navbar />
 
       <main className="flex-1 container mx-auto p-4 dark:bg-gray-900">

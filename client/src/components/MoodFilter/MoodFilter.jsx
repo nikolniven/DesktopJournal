@@ -25,7 +25,7 @@ function MoodFilter({ handleMoodFilter }) {
   }
 
   return (
-    <div className="px-4 py-5 flex flex-col gap-2">
+    <div className="px-5 py-5 flex flex-col gap-4">
       <label className="text-sm font-medium text-gray-700">
         Filter by Mood
       </label>

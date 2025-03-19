@@ -190,24 +190,24 @@ const Navbar = () => {
             {isLoggedIn && renderLogout()}
           </ul>
         </div>
-        <div className="flex items-center space-x-3 rtl:space-x-reverse pt-4 ">
+        <div className="flex items-center space-x-3 rtl:space-x-reverse pt-4 pl-20">
           {user && !isMenuOpen && (
             <p
-              className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white mr-4 text-purple-700 md:text-right"
+              className="self-center font-semibold whitespace-nowrap dark:text-white mr-4 text-indigo-300 md:text-right text-base"
               style={{ whiteSpace: 'initial' }}
             >
               Welcome back, {user.name} ✨
             </p>
           )}
+          <button onClick={() => darkModeHandler()}>
+            {
+              dark && <IoSunny /> // render sunny when dark is true
+            }
+            {
+              !dark && <IoMoon /> // render moon when dark is false
+            }
+          </button>
         </div>
-        <button onClick={() => darkModeHandler()}>
-          {
-            dark && <IoSunny /> // render sunny when dark is true
-          }
-          {
-            !dark && <IoMoon /> // render moon when dark is false
-          }
-        </button>
       </div>
     </nav>
   );

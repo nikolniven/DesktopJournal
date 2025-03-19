@@ -1,12 +1,8 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { AuthContext } from '../../context/auth.context';
 import { useSpeechRecognition } from '../../hooks/useSpeech';
-import { Buffer } from 'buffer';
 
 function AudioPromptPage() {
-  const { user } = useContext(AuthContext);
-  const [text, setText] = useState('');
   const [audioUrl, setAudioUrl] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [error, setError] = useState(null);
@@ -16,27 +12,27 @@ function AudioPromptPage() {
   const streamRef = useRef(null);
   const audioChunksRef = useRef([]);
   const [playbackUrl, setPlaybackUrl] = useState(null);
-
-  // Add new state for transcript
   const [transcript, setTranscript] = useState('');
 
-  useEffect(() => {
-    // console.log('User:', user);
-  }, [user]);
+  // useEffect(() => {
+  //   setTranscript(speech.transcript);
+  // }, [speech.transcript]);
 
-  const handleTextChange = (e) => {
-    setText(e.target.value);
+  console.log(isRecording);
+  const handleTranscriptChange = (e) => {
+    setTranscript(e.target.value);
   };
 
-  //ADDTOFIXPLAY
   const createPlayableAudio = (blob) => {
     return new Blob(blob, { type: 'audio/webm' });
   };
 
   const handleStartRecording = async () => {
-    speech.startListening();
-    setIsRecording(true);
-    audioChunksRef.current = [];
+    if (!speech.listening) {
+      speech.startListening();
+      setIsRecording(true);
+      audioChunksRef.current = [];
+    }
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -54,13 +50,9 @@ function AudioPromptPage() {
         const audioBlob = new Blob(audioChunksRef.current, {
           type: 'video/x-matroska;codecs=avc1',
         });
-
-        // Create a playable version of the blob
         const playableBlob = createPlayableAudio(audioChunksRef.current);
-
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudioUrl(audioUrl);
-
         setPlaybackUrl(URL.createObjectURL(playableBlob));
       };
 
@@ -73,12 +65,11 @@ function AudioPromptPage() {
   };
 
   const handleStopRecording = () => {
+    speech.stopListening();
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
       streamRef.current.getTracks().forEach((track) => track.stop());
       setIsRecording(false);
-
-      // Use the transcript from speech recognition
       setTranscript(speech.transcript);
     }
   };
@@ -130,6 +121,7 @@ function AudioPromptPage() {
       setLoading(false);
     }
   };
+  console.log(speech.transcript);
 
   return (
     <div className="w-full lg:w-[55vh] mx-auto">
@@ -137,13 +129,21 @@ function AudioPromptPage() {
         Listen <i className="fa fa-microphone" />
       </button> */}
       <p>
-        <code>transcript:</code>
-        <input
+        {/* <code>transcript:</code> */}
+        <textarea
           type="text"
-          readOnly
           value={speech.transcript}
-          style={{ width: '100%' }}
-        />
+          onChange={handleTranscriptChange}
+          style={{ width: '100%', height: '200px', resize: 'none' }}
+          className="h-48 p-2 border border-gray-300 rounded-lg"
+        ></textarea>
+        {/* <input
+          type="text"
+          value={speech.transcript}
+          onChange={handleTranscriptChange}
+          style={{ width: '100%', height: '100px', resize: 'none' }}
+          className="h-48 p-2 border border-gray-300 rounded-lg"
+        /> */}
       </p>
       <form
         onSubmit={handleSubmit}

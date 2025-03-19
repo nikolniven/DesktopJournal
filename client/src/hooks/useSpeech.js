@@ -12,6 +12,8 @@ function createRecognition() {
   const result = new BrowserSpeechRecognition();
   result.interimResults = true;
   result.maxAlternatives = 1;
+  result.continuous = true;
+  result.lang = 'en-US';
   return result;
 }
 
@@ -36,9 +38,16 @@ const initialState = { final: '', transcript: '' };
 function reducer(state, action) {
   switch (action.type) {
     case 'UpdateFinalTranscript':
-      return { ...state, final: concat(state.final, action.final) };
+      return {
+        ...state,
+        final: action.final, // Don't concatenate, just use the new final
+        transcript: concat(action.final, state.transcript),
+      };
     case 'UpdateTransientTranscript':
-      return { ...state, transcript: concat(state.final, action.transient) };
+      return {
+        ...state,
+        transcript: concat(state.final, action.transient), // Combine final with new transient
+      };
     case 'ClearTranscript':
       return initialState;
     default:
@@ -59,9 +68,9 @@ export function useSpeechRecognition() {
 
     function handleResult(event) {
       const final = getTranscript(event.results, (x) => x.isFinal);
-      dispatch({ type: 'UpdateFinalTranscript', final });
+      if (final) dispatch({ type: 'UpdateFinalTranscript', final });
       const transient = getTranscript(event.results, (x) => !x.isFinal);
-      dispatch({ type: 'UpdateTransientTranscript', transient });
+      if (transient) dispatch({ type: 'UpdateTransientTranscript', transient });
     }
 
     function handleEnd() {
@@ -83,6 +92,12 @@ export function useSpeechRecognition() {
     recognition.current.start();
   }
 
+  function stopListening() {
+    dispatch({ type: 'ClearTranscript' });
+    setListening(false);
+    recognition.current.stop();
+  }
+
   return {
     browserSupportsSpeechRecognition,
     transcript: state.transcript,
@@ -90,5 +105,6 @@ export function useSpeechRecognition() {
       ? startListening
       : () => {},
     listening,
+    stopListening,
   };
 }

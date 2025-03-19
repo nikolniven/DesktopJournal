@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
+import React from 'react';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/auth.context';
 import './index.css';
+import { IoMoon } from 'react-icons/io5';
+import { IoSunny } from 'react-icons/io5';
+import { IconContext } from 'react-icons';
+import { faMoon } from '@fortawesome/free-regular-svg-icons';
 
 // function Navbar() {
 //   // Subscribe to the AuthContext to gain access to
@@ -87,6 +92,7 @@ import './index.css';
 const Navbar = () => {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [dark, setDark] = React.useState(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -121,9 +127,14 @@ const Navbar = () => {
       </li>
     );
   };
+  function darkModeHandler() {
+    setDark(!dark);
+    document.documentElement.classList.toggle('dark');
+    console.log('Dark mode toggled:', document.documentElement.classList);
+  }
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 pr-10">
+    <nav className="bg-white border-gray-200 dark:bg-gray-900 pr-10 dark:text-white">
       <div
         className="nav-container max-w-screen-xl flex flex-wrap items-baseline justify-between mx-auto p-6 py-7 pr-5"
         style={{
@@ -189,6 +200,14 @@ const Navbar = () => {
             </p>
           )}
         </div>
+        <button onClick={() => darkModeHandler()}>
+          {
+            dark && <IoSunny /> // render sunny when dark is true
+          }
+          {
+            !dark && <IoMoon /> // render moon when dark is false
+          }
+        </button>
       </div>
     </nav>
   );

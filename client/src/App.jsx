@@ -27,7 +27,7 @@ function App() {
     <div className="App bg-gray-50 min-h-screen flex flex-col">
       <Navbar />
 
-      <main className="flex-1 container mx-auto p-4">
+      <main className="flex-1 container mx-auto p-4 dark:bg-gray-900">
         <MoodProviderWrapper>
           <Routes>
             <Route path="/" element={<HomePage />} />

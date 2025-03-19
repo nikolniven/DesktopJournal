@@ -65,7 +65,6 @@ export function useSpeechRecognition() {
 
   useEffect(() => {
     if (!browserSupportsSpeechRecognition) return;
-
     function handleResult(event) {
       const final = getTranscript(event.results, (x) => x.isFinal);
       if (final) dispatch({ type: 'UpdateFinalTranscript', final });
@@ -106,5 +105,6 @@ export function useSpeechRecognition() {
       : () => {},
     listening,
     stopListening,
+    state,
   };
 }

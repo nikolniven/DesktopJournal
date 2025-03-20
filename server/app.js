@@ -34,15 +34,18 @@ app.use('/journal', journalRoutes);
 
 // Mood category routes
 const moodCategoryRoutes = require('./routes/moodCategory.routes');
-app.use('/mood-categories', moodCategoryRoutes);
+app.use('/moods/categories', moodCategoryRoutes);
 
 // Mood extensive routes (fixed moods list)
 const moodExtensiveRoutes = require('./routes/moodExtensive.routes');
-app.use('/moods-extensive', moodExtensiveRoutes);
+app.use('/moods/extensive', moodExtensiveRoutes);
+
+const dreamRoutes = require('./routes/dreamAudio.routes');
+app.use('/dream-audio', dreamRoutes);
 
 // Habit progress routes
-const habitProgressRoutes = require('./routes/habitProgress.routes');
-app.use('/habit-progress', habitProgressRoutes);
+// const habitProgressRoutes = require('./routes/habitProgress.routes');
+// app.use('/habit-progress', habitProgressRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require('./error-handling')(app);

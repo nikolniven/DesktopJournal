@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Journal = require('../models/Journal.model');
 const { isAuthenticated } = require('../middleware/jwt.middleware');
+var mongoose = require('mongoose');
 
 // Create a new journal entry
 router.post('/', isAuthenticated, (req, res) => {
@@ -25,12 +26,45 @@ router.post('/', isAuthenticated, (req, res) => {
 });
 
 // Get all journal entries of the logged-in user with populated mood data
+// router.get('/', isAuthenticated, (req, res) => {
+//   const userId = req.payload._id;
+
+//   Journal.find({ userId })
+//     .populate('moodCategoryId moodExtensiveId') // Populates moodCategory and mood details
+//     .then((entries) => res.json(entries))
+//     .catch((error) => {
+//       console.error(error);
+//       res.status(500).json({ message: 'Error fetching journal entries' });
+//     });
+// });
+
 router.get('/', isAuthenticated, (req, res) => {
   const userId = req.payload._id;
+  const { startDate, endDate, mood, categoryId } = req.query;
+  let filterOptions = { userId };
 
-  Journal.find({ userId })
-    .populate('moodCategoryId moodExtensiveId') // Populates moodCategory and mood details
-    .then((entries) => res.json(entries))
+  // Add date range filter if dates are provided
+  if (startDate && endDate) {
+    filterOptions.createdAt = {
+      $gte: new Date(startDate),
+      $lte: new Date(endDate),
+    };
+  }
+
+  if (categoryId) {
+    filterOptions.moodCategoryId = new mongoose.Types.ObjectId(categoryId);
+  }
+
+  // console.log(filterOptions);
+  // return;
+
+  Journal.find(filterOptions)
+    .populate('moodCategoryId moodExtensiveId')
+    .sort({ createdAt: -1 })
+    .then((entries) => {
+      // console.log(entries);
+      res.json(entries);
+    })
     .catch((error) => {
       console.error(error);
       res.status(500).json({ message: 'Error fetching journal entries' });
@@ -58,14 +92,9 @@ router.get('/:id', isAuthenticated, (req, res) => {
 // Update a journal entry and return the updated entry with populated mood data
 router.put('/:id', isAuthenticated, (req, res) => {
   const { id } = req.params;
-  const { content, moodCategoryId, moodExtensiveId } = req.body;
-  const userId = req.payload._id;
+  const { content } = req.body;
 
-  Journal.findOneAndUpdate(
-    { _id: id, userId },
-    { content, moodCategoryId, moodExtensiveId },
-    { new: true },
-  )
+  Journal.findByIdAndUpdate(id, { content }, { new: true })
     .populate('moodCategoryId moodExtensiveId')
     .then((updatedEntry) => {
       if (!updatedEntry)

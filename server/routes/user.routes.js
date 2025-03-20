@@ -11,6 +11,7 @@ router.get('/profile', isAuthenticated, (req, res) => {
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
+      console.log(user);
       res.json(user);
     })
     .catch((error) => {
@@ -22,9 +23,9 @@ router.get('/profile', isAuthenticated, (req, res) => {
 // Update user profile
 router.put('/profile', isAuthenticated, (req, res) => {
   const userId = req.payload._id; // Extract user ID from JWT payload
-  const { name, profilePicture, habit } = req.body; // Update fields
+  const { password } = req.body; // Update fields
 
-  User.findByIdAndUpdate(userId, { name, profilePicture, habit }, { new: true })
+  User.findByIdAndUpdate(userId, { password }, { new: true })
     .then((user) => {
       if (!user) {
         return res.status(404).json({ message: 'User not found' });

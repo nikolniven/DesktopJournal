@@ -91,10 +91,10 @@ router.post('/login', (req, res, next) => {
 
       if (passwordCorrect) {
         // Deconstruct the user object to omit the password
-        const { _id, email, name } = foundUser;
+        const { _id, email, name, avatar } = foundUser;
 
         // Create an object that will be set as the token payload
-        const payload = { _id, email, name };
+        const payload = { _id, email, name, avatar };
 
         // Create a JSON Web Token and sign it
         const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
@@ -123,6 +123,62 @@ router.get('/verify', isAuthenticated, (req, res, next) => {
 // POST /auth/logout - Logs out the user
 router.post('/logout', isAuthenticated, (req, res) => {
   res.status(200).json({ message: 'User was logged out successfully' });
+});
+
+router.put('/change-password', isAuthenticated, async (req, res) => {
+  const { previousPassword, newPassword } = req.body;
+  const userId = req.payload._id;
+
+  try {
+    const foundUser = await User.findById(userId);
+    // console.log('Previous Password:', previousPassword);
+    // console.log('Found User:', foundUser);
+    // console.log('Found User Password:', foundUser?.password);
+
+    if (!foundUser) {
+      return res.status(401).json({ message: 'User not found.' });
+    }
+
+    const passwordCorrect = bcrypt.compareSync(
+      previousPassword,
+      foundUser.password,
+    );
+    if (!passwordCorrect) {
+      return res.status(401).json({ message: 'Wrong old password' });
+    }
+
+    const isPasswordStrong = validator.isStrongPassword(newPassword, {
+      minLength: 6,
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 0,
+    });
+
+    if (!isPasswordStrong) {
+      return res.status(400).json({
+        message:
+          'Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.',
+      });
+    }
+
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hashedPassword = bcrypt.hashSync(newPassword, salt);
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { password: hashedPassword },
+      { new: true },
+    );
+    if (!updatedUser) {
+      return res.status(401).json({ message: 'User not found.' });
+    }
+
+    res.json({ message: 'Password has been updated' });
+  } catch (error) {
+    console.log('Changing password Error!', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 });
 
 module.exports = router;

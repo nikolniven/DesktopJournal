@@ -1,4 +1,3 @@
-// routes/moodCategory.routes.js
 const express = require('express');
 const router = express.Router();
 const MoodCategory = require('../models/Mood-Category.model');

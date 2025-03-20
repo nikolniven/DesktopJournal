@@ -105,7 +105,7 @@ function UserPage() {
           {/* Password */}
           <div>
             <label
-              htmlFor="password"
+              htmlFor="new-password"
               className="block text-sm font-medium text-gray-700"
             >
               New Password:
@@ -113,7 +113,7 @@ function UserPage() {
             <input
               type="password"
               name="password"
-              id="password"
+              id="new-password"
               value={newPassword}
               onChange={handleNewPassword}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
@@ -122,7 +122,7 @@ function UserPage() {
           </div>
           <div>
             <label
-              htmlFor="password"
+              htmlFor="repeat-password"
               className="block text-sm font-medium text-gray-700"
             >
               Confirm New Password:
@@ -130,7 +130,7 @@ function UserPage() {
             <input
               type="password"
               name="password"
-              id="password"
+              id="repeat-password"
               value={confirmNewPassword}
               onChange={handleconfirmNewPassword}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"

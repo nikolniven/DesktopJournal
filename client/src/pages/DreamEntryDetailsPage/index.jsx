@@ -6,9 +6,9 @@ export default function DreamEntryDetailsPage(props) {
   const [specificDreamEntry, setSpecificDream] = useState('');
   const { dreamId } = useParams();
   const navigate = useNavigate();
-
+  const baseURL = process.env.REACT_APP_SERVER_URL;
   const fetchDreamEntry = async (params = { props }) => {
-    const url = `http://localhost:5005/dream-audio/${dreamId}`;
+    const url = `${baseURL}/dream-audio/${dreamId}`;
     try {
       const storedToken = localStorage.getItem('authToken');
       const response = await axios.get(url, {

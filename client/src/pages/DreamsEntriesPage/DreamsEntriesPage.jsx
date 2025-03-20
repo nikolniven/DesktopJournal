@@ -13,11 +13,12 @@ function DreamsEntriesPage() {
   const [filters, setFilters] = useState({
     dateRange: null,
   });
+  const baseURL = process.env.REACT_APP_SERVER_URL;
 
   const fetchEntries = async (params = {}) => {
     try {
       const storedToken = localStorage.getItem('authToken');
-      const response = await axios.get('http://localhost:5005/dream-audio', {
+      const response = await axios.get(`${baseURL}/dream-audio`, {
         headers: { Authorization: `Bearer ${storedToken}` },
         params,
       });

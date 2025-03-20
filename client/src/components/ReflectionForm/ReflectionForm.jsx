@@ -5,7 +5,7 @@ import axios from 'axios';
 function ReflectionForm({ selectedMoods }) {
   const { user } = useContext(AuthContext);
   const [text, setText] = useState('');
-
+  const baseURL = process.env.REACT_APP_SERVER_URL;
   const handleChange = (e) => {
     setText(e.target.value);
   };
@@ -25,7 +25,7 @@ function ReflectionForm({ selectedMoods }) {
     try {
       const storedToken = localStorage.getItem('authToken');
       const response = await axios.post(
-        'http://localhost:5005/journal',
+        `${baseURL}/journal`,
         {
           content: text,
           moodCategoryId: selectedMoods.moodCategoryId,

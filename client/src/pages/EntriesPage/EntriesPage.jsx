@@ -11,11 +11,12 @@ function EntriesPage() {
     dateRange: null,
     moodCategory: '',
   });
+  const baseURL = process.env.REACT_APP_SERVER_URL;
 
   const fetchEntries = async (params = {}) => {
     try {
       const storedToken = localStorage.getItem('authToken');
-      const response = await axios.get('http://localhost:5005/journal', {
+      const response = await axios.get(`${baseURL}/journal`, {
         headers: { Authorization: `Bearer ${storedToken}` },
         params,
       });

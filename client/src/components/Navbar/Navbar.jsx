@@ -119,7 +119,7 @@ const Navbar = () => {
       <li>
         <button
           onClick={logOutUser}
-          className="block py-2 px-3 text-white bg-indigo-700 rounded-sm md:bg-transparent md:text-indigo-700 md:p-0 dark:text-white md:dark:text-indigo-500 w-full"
+          className="block py-2 px-3 text-white bg-indigo-700 rounded-sm md:bg-transparent md:text-indigo-300 md:p-0 dark:text-white md:dark:text-indigo-500 w-full"
           aria-current="page"
         >
           Logout

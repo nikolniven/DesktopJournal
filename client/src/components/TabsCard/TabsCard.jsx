@@ -78,13 +78,13 @@ function TabsCard({ onMoodSelection, categories }) {
             </button>
             {activeDropdown === displayName && (
               <div className="max-w-[600px] mx-auto">
-                <div className="grid grid-cols-3 gap-4 m-8 bg-lilac-100 border border-lilac-300 rounded-lg">
+                <div className="grid grid-cols-3 gap-4 m-8 bg-lilac-500 border border-lilac-300 rounded-lg">
                   {moodOptions[categoryName].map((mood, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleMoodSelection(displayName, mood)}
                       className={`w-full flex items-center justify-center h-16 px-10 py-8 text-lilac-700 
-                      bg-[rgb(200,172,214)] border border-lilac-300 rounded-lg
+                      bg-[rgb(200,172,214)] border border-lilac-900 rounded-lg
                       ${
                         moodSelections[categoryName] === mood
                           ? 'bg-lilac-300 text-purple-300'

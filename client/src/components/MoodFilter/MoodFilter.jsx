@@ -32,7 +32,7 @@ function MoodFilter({ handleMoodFilter }) {
       <select
         value={selectedMood}
         onChange={(e) => handleMoodChange(e.target.value)}
-        className="rounded-md border-lilac-300 shadow-sm focus:border-lilac-500 focus:ring-lilac-500 p-2  dark:bg-indigo-700"
+        className="rounded-md border-lilac-300 shadow-sm focus:border-lilac-500 focus:ring-indigo-400 p-2  dark:bg-indigo-300"
       >
         <option value="">All Moods</option>
         <option value="Positive">Somewhat Up</option>

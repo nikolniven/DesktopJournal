@@ -64,7 +64,7 @@ export default function EntryEditPage() {
         <div className="flex justify-center space-x-4 mt-6">
           <button
             onClick={updateEntry}
-            className="bg-indigo-400 hover:bg-indigo-500 text-white rounded-2xl shadow-md px-4 py-2"
+            className="bg-indigo-400 hover:bg-[rgb(46,35,108)]text-white rounded-2xl shadow-md px-4 py-2"
           >
             Update
           </button>

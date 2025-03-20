@@ -134,7 +134,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 pr-10 dark:text-white">
+    <nav className="bg-[rgb(67,61,139)] border-gray-200 pr-10 pl-4 dark:text-white dark:bg-[rgb(23,21,59)]">
       <div
         className="nav-container max-w-screen-xl flex flex-wrap items-baseline justify-between mx-auto p-6 py-7 pr-5"
         style={{
@@ -175,12 +175,12 @@ const Navbar = () => {
           }`}
           id="navbar-default"
         >
-          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-[rgb(67,61,139)] md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-[rgb(23,21,59)] dark:border-gray-700">
             {activeLinks.map((link, i) => (
               <li key={i + link.title}>
                 <Link
                   to={link.to}
-                  className="block py-2 px-3 text-white bg-indigo-700 rounded-sm md:bg-transparent md:text-indigo-700 md:p-0 dark:text-white md:dark:text-indigo-500"
+                  className="bg-[rgb(67,61,139)] block py-2 px-3 text-white rounded-sm  md:dark:bg-[rgb(23,21,59)] md:text-indigo-200 md:p-0 dark:text-white md:dark:text-indigo-200"
                   aria-current="page"
                 >
                   {link.title}

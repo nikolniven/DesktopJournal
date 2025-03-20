@@ -24,6 +24,11 @@ const userSchema = new Schema(
       type: Date,
       default: Date.now,
     },
+    avatar: {
+      type: String,
+      default:
+        'https://upload.wikimedia.org/wikipedia/commons/5/59/User-avatar.svg',
+    },
   },
   {
     timestamps: true, // Adds createdAt and updatedAt timestamps

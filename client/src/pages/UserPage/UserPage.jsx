@@ -8,9 +8,10 @@ function UserPage() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const { storeToken, authenticateUser } = useContext(AuthContext);
+  const { storeToken, authenticateUser, user } = useContext(AuthContext);
   const { onSuccess, onError } = useToast();
 
+  console.log(user);
   const handlePreviousPassword = (e) => setPreviousPassword(e.target.value);
   const handleNewPassword = (e) => setNewPassword(e.target.value);
   const handleconfirmNewPassword = (e) => setConfirmNewPassword(e.target.value);
@@ -47,8 +48,36 @@ function UserPage() {
   };
 
   return (
-    <div className="min-h-screen  bg-indigo-50 flex items-center justify-center  dark:bg-gray-900">
+    <div className="min-h-screen bg-indigo-50 flex items-center justify-center dark:bg-gray-900">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        {/* User Profile Card */}
+        <div className="mb-8 text-center">
+          <div className="relative w-24 h-24 mx-auto mb-4">
+            {user?.avatar ? (
+              <img
+                src={user.avatar}
+                alt="Profile"
+                className="rounded-full w-full h-full object-cover border-4 border-indigo-100"
+              />
+            ) : (
+              <div className="rounded-full w-full h-full bg-indigo-100 flex items-center justify-center">
+                <span className="text-2xl text-indigo-500">
+                  {user?.name?.charAt(0) || 'U'}
+                </span>
+              </div>
+            )}
+          </div>
+          <h2 className="text-xl font-bold text-gray-800">
+            {user?.name || 'User'}
+          </h2>
+          <p className="text-gray-600">{user?.email}</p>
+          <div className="mt-2 px-4 py-1 bg-indigo-100 text-indigo-700 rounded-full inline-block text-sm">
+            Active Account
+          </div>
+        </div>
+
+        <div className="border-t border-gray-200 mb-6"></div>
+
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Change your password
         </h1>

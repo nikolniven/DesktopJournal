@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function EntryCard({ entry, isDreamPage }) {
   return (
-    <div className="bg-indigo-50 rounded-lg shadow-sm hover:shadow-md transition-shadow p-6">
+    <div className="bg-indigo-100 rounded-lg shadow-sm hover:shadow-md transition-shadow p-6">
       <div className="flex justify-between items-start mb-4">
         {!isDreamPage && (
           <div className="flex gap-2">
@@ -22,6 +22,7 @@ export default function EntryCard({ entry, isDreamPage }) {
           <p className="text-gray-700 mb-4 line-clamp-3">{entry.transcript}</p>
         )}
       </div>
+
       {entry.audio && (
         <audio controls className="w-full mt-4">
           <source src={entry.audio} type="audio/mpeg" />
@@ -29,7 +30,7 @@ export default function EntryCard({ entry, isDreamPage }) {
         </audio>
       )}
       {entry.content && (
-        <p className="text-gray-700 mb-4 line-clamp-3">{entry.content}</p>
+        <p className="text-gray-700 mb-4 line-clamp-3 ">{entry.content}</p>
       )}
 
       <Link to={`/${isDreamPage ? 'dreams-entries' : 'entries'}/${entry._id}`}>

@@ -130,7 +130,7 @@ const Navbar = () => {
   function darkModeHandler() {
     setDark(!dark);
     document.documentElement.classList.toggle('dark');
-    console.log('Dark mode toggled:', document.documentElement.classList);
+    // console.log('Dark mode toggled:', document.documentElement.classList);
   }
 
   return (

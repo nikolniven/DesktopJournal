@@ -15,7 +15,7 @@ export default function DreamEntryDetailsPage(props) {
         headers: { Authorization: `Bearer ${storedToken}` },
         params,
       });
-      console.log('Server response:', response.data);
+      // console.log('Server response:', response.data);
       setSpecificDream(response.data);
     } catch (error) {
       console.error('Error fetching dream entries:', error);

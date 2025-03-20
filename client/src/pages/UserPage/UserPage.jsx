@@ -11,7 +11,7 @@ function UserPage() {
   const { storeToken, authenticateUser, user } = useContext(AuthContext);
   const { onSuccess, onError } = useToast();
 
-  console.log(user);
+  // console.log(user);
   const handlePreviousPassword = (e) => setPreviousPassword(e.target.value);
   const handleNewPassword = (e) => setNewPassword(e.target.value);
   const handleconfirmNewPassword = (e) => setConfirmNewPassword(e.target.value);

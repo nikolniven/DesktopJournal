@@ -26,9 +26,8 @@ const displayMapping = {
   'Somewhat down': 'Negative',
 };
 
-function TabsCard({ onMoodSelection }) {
+function TabsCard({ onMoodSelection, categories }) {
   const { categoryIds, extensiveMoodIds } = useContext(MoodContext);
-
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [moodSelections, setMoodSelections] = useState({
     Positive: null,
@@ -36,19 +35,20 @@ function TabsCard({ onMoodSelection }) {
     Negative: null,
   });
 
+  // console.log(categoryIds, extensiveMoodIds);
   const handleMoodSelection = (displayName, mood) => {
+    // console.log(displayName, mood);
     // Convert display name to category name
     const categoryName = displayMapping[displayName];
-
     setMoodSelections({ ...moodSelections, [categoryName]: mood });
 
     // Debug logs
-    console.log('=----- Mood Selection Data -----=');
-    console.log('Display Name:', displayName);
-    console.log('Category Name:', categoryName);
-    console.log('Category ID:', categoryIds[categoryName]);
-    console.log('Mood:', mood);
-    console.log('Mood ID:', extensiveMoodIds[mood]);
+    // console.log('=----- Mood Selection Data -----=');
+    // console.log('Display Name:', displayName);
+    // console.log('Category Name:', categoryName);
+    // console.log('Category ID:', categoryIds[categoryName]);
+    // console.log('Mood:', mood);
+    // console.log('Mood ID:', extensiveMoodIds[mood]);
 
     onMoodSelection({
       moodCategoryId: categoryIds[categoryName],

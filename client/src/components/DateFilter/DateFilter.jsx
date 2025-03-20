@@ -25,7 +25,7 @@ function DateFilter({ onFilterChange }) {
           <select
             value={month}
             onChange={(e) => setMonth(e.target.value)}
-            className="rounded-md border-gray-300 shadow-sm focus:border-lilac-500 focus:ring-lilac-500"
+            className="rounded-md border-gray-300 shadow-sm focus:border-lilac-500 focus:ring-lilac-500  dark:bg-indigo-700"
           >
             <option value="">Select month</option>
             {Array.from({ length: 12 }, (_, i) => {
@@ -47,7 +47,7 @@ function DateFilter({ onFilterChange }) {
           <select
             value={year}
             onChange={(e) => setYear(e.target.value)}
-            className="rounded-md border-gray-300 shadow-sm focus:border-lilac-500 focus:ring-lilac-500"
+            className="rounded-md border-gray-300 shadow-sm focus:border-lilac-500 focus:ring-lilac-500  dark:bg-indigo-700"
           >
             {Array.from({ length: 5 }, (_, i) => {
               const yearNum = new Date().getFullYear() - i;

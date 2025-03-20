@@ -36,7 +36,7 @@ function DreamsEntriesPage() {
   }, [filters]);
 
   const handleDateFilter = (dateRange) => {
-    console.log(dateRange);
+    // console.log(dateRange);
     setFilters((prev) => ({
       ...prev,
       dateRange,

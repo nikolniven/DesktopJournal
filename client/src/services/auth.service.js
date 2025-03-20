@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-console.log(process.env.REACT_APP_SERVER_URL);
+// console.log(process.env.REACT_APP_SERVER_URL);
 class AuthService {
   constructor() {
     this.api = axios.create({

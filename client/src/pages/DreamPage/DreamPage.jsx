@@ -22,7 +22,7 @@ function AudioPromptPage() {
     if (speech.state.final) setTranscript(speech.state.final);
   }, [speech.state.final]);
 
-  console.log(speech.state);
+  // console.log(speech.state);
   const handleTranscriptChange = (e) => {
     setTranscript(e.target.value);
   };
@@ -128,7 +128,7 @@ function AudioPromptPage() {
       navigate('/dreams-entries');
     }, 1500);
   };
-  console.log(speech.transcript);
+  // console.log(speech.transcript);
 
   return (
     <div className="flex min-h-screen mt-20">

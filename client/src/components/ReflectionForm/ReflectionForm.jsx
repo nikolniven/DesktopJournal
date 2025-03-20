@@ -1,5 +1,6 @@
 import React, { AuthContext } from '../../context/auth.context';
 import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function ReflectionForm({ selectedMoods }) {
@@ -9,10 +10,9 @@ function ReflectionForm({ selectedMoods }) {
   const handleChange = (e) => {
     setText(e.target.value);
   };
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log('selectedMoods in ReflectionForm:', selectedMoods);
-  }, [selectedMoods]);
+  // console.log('selectedMoods in ReflectionForm:', selectedMoods);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,13 +40,16 @@ function ReflectionForm({ selectedMoods }) {
       );
 
       if (response.status === 201) {
-        console.log('Journal entry submitted successfully!');
+        // console.log('Journal entry submitted successfully!');
         setText('');
       }
     } catch (error) {
       console.error('Error submitting journal entry:', error);
       console.log('Error details:', error.response?.data);
     }
+    setTimeout(() => {
+      navigate('/entries');
+    }, 1500);
   };
 
   return (

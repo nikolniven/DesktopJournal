@@ -7,17 +7,15 @@ function EntriesDetailPage(props) {
   const [updatedEntry, setUpdatedEntry] = useState('');
   const { entryId } = useParams();
   const navigate = useNavigate();
+  const baseURL = process.env.REACT_APP_SERVER_URL;
 
   const fetchEntry = async (params = { props }) => {
     try {
       const storedToken = localStorage.getItem('authToken');
-      const response = await axios.get(
-        `http://localhost:5005/journal/${entryId}`,
-        {
-          headers: { Authorization: `Bearer ${storedToken}` },
-          params,
-        },
-      );
+      const response = await axios.get(`${baseURL}/journal/${entryId}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+        params,
+      });
       setEntry(response.data);
     } catch (error) {
       console.error('Error fetching entries:', error);

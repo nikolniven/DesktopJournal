@@ -5,18 +5,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 export default function EntryEditPage() {
   const [specificEntry, setEntry] = useState('');
   const { entryId } = useParams();
-
   const navigate = useNavigate();
+  const baseURL = process.env.REACT_APP_SERVER_URL;
 
   const fetchEntry = async () => {
     try {
       const storedToken = localStorage.getItem('authToken');
-      const response = await axios.get(
-        `http://localhost:5005/journal/${entryId}`,
-        {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        },
-      );
+      const response = await axios.get(`${baseURL}/journal/${entryId}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      });
       setEntry(response.data.content);
     } catch (error) {
       console.error('Error fetching entries:', error);
@@ -30,7 +27,7 @@ export default function EntryEditPage() {
     try {
       const storedToken = localStorage.getItem('authToken');
       await axios.put(
-        `http://localhost:5005/journal/${entryId}`,
+        `${baseURL}/journal/${entryId}`,
         { content: specificEntry },
         {
           headers: { Authorization: `Bearer ${storedToken}` },
@@ -46,7 +43,7 @@ export default function EntryEditPage() {
   const deleteEntry = async () => {
     try {
       const storedToken = localStorage.getItem('authToken');
-      await axios.delete(`http://localhost:5005/journal/${entryId}`, {
+      await axios.delete(`${baseURL}/journal/${entryId}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
       navigate(-2);

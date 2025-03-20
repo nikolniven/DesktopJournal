@@ -11,7 +11,7 @@ export function MoodProviderWrapper({ children }) {
   const [categoryIds, setCategoryIds] = useState({});
   const [extensiveMoodIds, setExtensiveMoodIds] = useState({});
   const [isLoading, setIsLoading] = useState(true); // Add loading state
-
+  const baseURL = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
     const fetchMoodData = async () => {
       try {
@@ -22,10 +22,10 @@ export function MoodProviderWrapper({ children }) {
         }
 
         const [categoriesRes, moodsRes] = await Promise.all([
-          axios.get('http://localhost:5005/moods/categories', {
+          axios.get(`${baseURL}/moods/categories`, {
             headers: { Authorization: `Bearer ${storedToken}` },
           }),
-          axios.get('http://localhost:5005/moods/extensive', {
+          axios.get(`${baseURL}/moods/extensive`, {
             headers: { Authorization: `Bearer ${storedToken}` },
           }),
         ]);

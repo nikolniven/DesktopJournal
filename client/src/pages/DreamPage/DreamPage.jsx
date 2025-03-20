@@ -16,6 +16,7 @@ function AudioPromptPage() {
   const [transcript, setTranscript] = useState('');
 
   const navigate = useNavigate();
+  const baseURL = process.env.REACT_APP_SERVER_URL;
 
   useEffect(() => {
     if (speech.state.final) setTranscript(speech.state.final);
@@ -106,7 +107,7 @@ function AudioPromptPage() {
       formData.append('transcript', transcript);
 
       const storedToken = localStorage.getItem('authToken');
-      await axios.post('http://localhost:5005/dream-audio', formData, {
+      await axios.post(`${baseURL}/dream-audio`, formData, {
         headers: {
           Authorization: `Bearer ${storedToken}`,
           'Content-type': 'multipart/form-data',
@@ -122,7 +123,7 @@ function AudioPromptPage() {
       console.error(error);
       setLoading(false);
     }
-    
+
     setTimeout(() => {
       navigate('/dreams-entries');
     }, 1500);

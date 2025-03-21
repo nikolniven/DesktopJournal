@@ -155,7 +155,7 @@ function AudioPromptPage() {
         </p>
         <form
           onSubmit={handleSubmit}
-          className="w-full mb-4 border border-indigo-200 rounded-lg bg-indigo-100 dark:bg-indigo-700 dark:border-indigo-600"
+          className="w-full mb-4 border border-indigo-200 rounded-lg bg-indigo-100 dark:bg-[rgb(67,61,139)] dark:border-indigo-600"
         >
           <div className="flex items-center justify-between px-3 py-2 border-b border-indigo-200 dark:border-indigo-600">
             <h2 className="text-xl font-semibold">Audio or Text Prompt</h2>
@@ -165,8 +165,8 @@ function AudioPromptPage() {
             <button
               type="button"
               onClick={toggleRecording}
-              className={`p-2 text-indigo-600 rounded-sm cursor-pointer hover:text-indigo-700 hover:bg-indigo-200 dark:text-indigo-400 dark:hover:text-indigo-300 dark:hover:bg-indigo-600 ${
-                isRecording ? 'bg-red-500' : 'bg-green-500'
+              className={`p-2 text-indigo-600 rounded-sm cursor-pointer hover:text-indigo-700 hover:bg-indigo-200 dark:text-indigo-400 dark:hover:text-indigo-300 dark:hover:bg-[rgb(23,21,59)] ${
+                isRecording ? 'bg-red-500' : 'bg-[rgb(200,172,214)]'
               }`}
             >
               {isRecording ? 'Stop Recording' : 'Start Recording'}

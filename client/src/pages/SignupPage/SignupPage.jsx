@@ -45,7 +45,7 @@ function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="bg-indigo-50 min-h-screen flex items-center justify-center dark:bg-[rgb(35,32,51)]">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Sign Up
@@ -118,7 +118,7 @@ function SignupPage() {
           <div>
             <button
               type="submit"
-              className="w-full py-2 px-4 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full py-2 px-4 bg-[rgb(46,35,108)]text-white font-semibold rounded-md hover:bg-[rgb(23,21,59)] focus:outline-none focus:ring-2 focus:ring-indigo-400"
             >
               Sign Up
             </button>

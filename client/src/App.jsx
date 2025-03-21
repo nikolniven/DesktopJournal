@@ -24,10 +24,10 @@ import DreamEntryDetailsPage from './pages/DreamEntryDetailsPage';
 
 function App() {
   return (
-    <div className="App bg-indigo-50 min-h-screen flex flex-col dark:bg-gray-900">
+    <div className="App bg-indigo-50 min-h-screen flex flex-col dark:bg-[rgb(35,32,51)] ">
       <Navbar />
 
-      <main className="flex-1 container mx-auto p-4 dark:bg-gray-900">
+      <main className=" bg-indigo-50 flex-1 container mx-auto p-4 dark:bg-[rgb(35,32,51)]">
         <MoodProviderWrapper>
           <Routes>
             <Route path="/" element={<HomePage />} />

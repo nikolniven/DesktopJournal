@@ -52,7 +52,7 @@ function EntriesDetailPage(props) {
   // }, [updatedEntry]);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-indigo-50 p-12">
+    <div className="flex justify-center items-center min-h-screen bg-indigo-50 p-12 dark:bg-[rgb(35,32,51)]">
       <div className="w-full max-w-xl bg-indigo-100 shadow-lg rounded-2xl p-8 text-center h-[600px] flex flex-col justify-between">
         <p className="text-gray-700 text-lg mb-6 overflow-y-auto flex-grow">
           {specificEntry.content}
@@ -61,7 +61,7 @@ function EntriesDetailPage(props) {
           <Link to={`/entries/${entryId}/edit`}>
             <button
               // onClick={modEntry}
-              className="bg-indigo-400 hover:bg-indigo-500 text-white rounded-2xl shadow-md px-4 py-2"
+              className="bg-indigo-400 hover:bg-[rgb(46,35,108)]text-white rounded-2xl shadow-md px-4 py-2"
             >
               Edit
             </button>

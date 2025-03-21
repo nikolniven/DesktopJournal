@@ -48,10 +48,10 @@ function UserPage() {
   };
 
   return (
-    <div className="min-h-screen bg-indigo-50 flex items-center justify-center dark:bg-gray-900">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <div className="min-h-screen bg-indigo-50 flex items-center justify-center dark:bg-[rgb(35,32,51)]">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md dark:bg-[rgb(173,169,189)]">
         {/* User Profile Card */}
-        <div className="mb-8 text-center">
+        <div className="mb-8 text-center ">
           <div className="relative w-24 h-24 mx-auto mb-4">
             {user?.avatar ? (
               <img
@@ -147,7 +147,7 @@ function UserPage() {
           <div>
             <button
               type="submit"
-              className="w-full py-2 px-4 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full py-2 px-4 bg-[rgb(46,35,108)]text-white font-semibold rounded-md hover:bg-[rgb(23,21,59)] focus:outline-none focus:ring-2 focus:ring-indigo-400"
             >
               Change Password
             </button>

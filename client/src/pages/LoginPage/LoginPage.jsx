@@ -98,7 +98,7 @@ function LoginPage() {
           <div>
             <button
               type="submit"
-              className="w-full py-2 px-4 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full py-2 px-4 bg-[rgb(46,35,108)]text-white font-semibold rounded-md hover:bg-[rgb(23,21,59)] focus:outline-none focus:ring-2 focus:ring-indigo-400"
             >
               Login
             </button>
